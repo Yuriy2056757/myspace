@@ -4,7 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            EDIT
+            {!! Form::open(['url' => 'foo/bar', 'method' => 'put']) !!}
+
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
