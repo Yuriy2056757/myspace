@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return redirect(route('home'));
     }
 
     /**
@@ -29,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return redirect(route('home'));
     }
 
     /**
@@ -68,7 +68,7 @@ class UserController extends Controller
             return view('users.edit', compact('user'));
         }
 
-        redirect(route('home'));
+        return redirect(route('home'));
     }
 
     /**
