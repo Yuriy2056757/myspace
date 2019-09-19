@@ -52,6 +52,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:20', 'unique:users'],
+            'address' => ['required', 'string', 'max:255'],
+            'zipcode' => ['required', 'alpha_num', 'min:5', 'max:6'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -65,10 +67,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if ($data['relationship_status'] == 'taken') {
+            $data['relationship_status'] = 1;
+        } else {
+            $data['relationship_status'] = 0;
+        }
+
         return User::create([
             'name' => $data['name'],
             'surname' => $data['surname'],
             'username' => $data['username'],
+            'address' => $data['address'],
+            'zipcode' => $data['zipcode'],
+            'relationship_status' => $data['relationship_status'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
