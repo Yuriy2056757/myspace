@@ -99,7 +99,7 @@
                             <label for="relationship_status" class="col-md-4 col-form-label text-md-right">{{ __('Relationship Status') }}</label>
 
                             <div class="col-md-6">
-                                {{ Form::select('relationship_status', ['single' => 'Single', 'taken' => 'Taken'], old('relationship_status')) }}
+                                {{ Form::select('relationship_status', ['single' => 'Single', 'taken' => 'Taken'], old('relationship_status'), ['class' => 'form-control']) }}
 
                                 @error('relationship_status')
                                     <span class="invalid-feedback" role="alert">

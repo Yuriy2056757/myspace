@@ -4,14 +4,37 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            {{ Auth::user()->name }}
-            {{ Auth::user()->surname }}
-            {{ Auth::user()->username }}
-            {{ Auth::user()->relationship_status }}
-            {{ Auth::user()->address }}
-            {{ Auth::user()->zipcode }}
+            <div>
+                {{ Auth::user()->name }}
+            </div>
 
-            <a href="{{ route('users.edit', Auth::user()) }}">Edit</a>
+            <div>
+                {{ Auth::user()->surname }}
+            </div>
+
+            <div>
+                {{ Auth::user()->username }}
+            </div>
+
+            <div>
+                {{ Auth::user()->email }}
+            </div>
+
+            <div>
+                {{ Auth::user()->address }}
+            </div>
+
+            <div>
+                {{ Auth::user()->zipcode }}
+            </div>
+
+            <div>
+                {{ Auth::user()->relationship_status }}
+            </div>
+
+            <div>
+                <a class='btn btn-primary' href="{{ route('users.edit', Auth::user()) }}">Edit</a>
+            </div>
         </div>
     </div>
 </div>

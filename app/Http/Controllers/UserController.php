@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -69,7 +72,63 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $v = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:20'],
+            'address' => ['required', 'string', 'max:255'],
+            'zipcode' => ['required', 'alpha_num', 'min:5', 'max:6'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+            ],
+            Rule::unique('users')->ignore($user->email),
+            Rule::unique('users')->ignore($user->username),
+            'new_password' =>
+            'nullable|different:password|min:8|confirmed',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'username' => $request->username,
+            'address' => $request->address,
+            'zipcode' => $request->zipcode,
+            'relationship_status' => $request->relationship_status,
+            'email' => $request->email,
+        ];
+
+        if ($data['relationship_status'] == 'taken') {
+            $data['relationship_status'] = 1;
+        } else {
+            $data['relationship_status'] = 0;
+        }
+
+        // Only validate if a new password is provided
+        if (isset($v['new_password'])) {
+            if ($request->password && Hash::check(
+                $request->password,
+                $user->getAuthPassword()
+            )) {
+
+                // Encrypt and append the new password to data
+                $data['password'] = Hash::make($request->new_password);
+            } else {
+                $error = ValidationException::withMessages([
+                    'incorrect_password' => [
+                        'The entered password does not match your current password.'
+                    ],
+                ]);
+
+                throw $error;
+            }
+        }
+
+        $user->update($data);
+
+        return redirect(route('users.show', $user));
     }
 
     /**
