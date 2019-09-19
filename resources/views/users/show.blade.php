@@ -5,6 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             {{ Auth::user()->name }}
+            {{ Auth::user()->surname }}
+            {{ Auth::user()->username }}
 
             <a href="{{ route('users.edit', Auth::user()) }}">Edit</a>
         </div>
