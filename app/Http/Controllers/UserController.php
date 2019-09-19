@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -61,7 +62,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+
+        // Only allow the owner to edit his profile
+        if (Auth::user() == $user) {
+            return view('users.edit', compact('user'));
+        }
+
+        redirect(route('home'));
     }
 
     /**
@@ -76,7 +83,7 @@ class UserController extends Controller
         $v = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:20'],
+            'username' => ['required', 'alpha_num', 'max:20'],
             'address' => ['required', 'string', 'max:255'],
             'zipcode' => ['required', 'alpha_num', 'min:5', 'max:6'],
             'email' => [
