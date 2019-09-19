@@ -16,4 +16,4 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 // Create standard RESTful routes for User resources
-Route::resource('users', 'UserController', ['except' => ['index', 'create']]);
+Route::resource('users', 'UserController', ['except' => ['index', 'create', 'store']]);
