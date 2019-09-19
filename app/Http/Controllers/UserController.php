@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -84,10 +85,11 @@ class UserController extends Controller
                 'email',
                 'max:255',
             ],
+            'image' => ['sometimes', 'file', 'image', 'max:5000'],
             Rule::unique('users')->ignore($user->email),
             Rule::unique('users')->ignore($user->username),
             'new_password' =>
-            'nullable|different:password|min:8|confirmed',
+            ['nullable', 'different:password', 'min:8', 'confirmed'],
         ]);
 
         $data = [
@@ -124,6 +126,17 @@ class UserController extends Controller
 
                 throw $error;
             }
+        }
+
+        if ($request->has('image')) {
+
+            // Unlink the old image from storage
+            if (Storage::disk('public')->exists($user->image)) {
+                Storage::disk('public')->delete($user->image);
+            }
+
+            // Append to data so we don't have to query twice
+            $data['image'] = $request->image->store('uploads', 'public');
         }
 
         $user->update($data);

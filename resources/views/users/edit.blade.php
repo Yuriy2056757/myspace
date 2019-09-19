@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Update') }}</div>
+                <div class="card-header">{{ __('Edit Profile') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('users.update', Auth::user()) }}">
+                    <form method="POST" action="{{ route('users.update', Auth::user()) }}" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf
 
@@ -21,6 +21,48 @@
                                 </ul>
                             </div>
                         @endif
+
+                        <div class="form-group row">
+                            <div class="col-md-4 col-form-label text-md-right">
+                                Profile Image
+                            </div>
+
+                            <div class="col-md-6">
+                                <div>
+                                    @if ($user->image)
+                                        <img
+                                            id="image_preview"
+                                            width="128"
+                                            height="128"
+                                            src="{{ asset('storage/' . $user->image) }}"
+                                            class="mb-3 rounded"
+                                        />
+                                    @else
+                                        <img
+                                            id="image_preview"
+                                            width="128"
+                                            height="128"
+                                            src="{{ asset('placeholder-avatar.jpg') }}"
+                                            class="mb-3 rounded"
+                                        />
+                                    @endif
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input
+                                            type="file"
+                                            class="custom-file-input"
+                                            name="image"
+                                            aria-describedby="inputGroupFileAddon01"
+                                            onchange="document.getElementById('image_preview').src = window.URL.createObjectURL(this.files[0])"
+                                        />
+
+                                        <label class="custom-file-label" for="image">Select file...</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>

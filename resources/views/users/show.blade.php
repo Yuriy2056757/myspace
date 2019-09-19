@@ -33,7 +33,7 @@
             </div>
 
             <div>
-                <a class='btn btn-primary' href="{{ route('users.edit', Auth::user()) }}">Edit</a>
+                <a class='btn btn-primary' href="{{ route('users.edit', Auth::user()) }}">Edit Profile</a>
             </div>
         </div>
     </div>
