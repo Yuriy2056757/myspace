@@ -2,37 +2,59 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row">
+        <div class="col-md-2">
             <div>
-                {{ Auth::user()->name }}
+                @if ($user->image)
+                    <img
+                        id="image_preview"
+                        width="160"
+                        height="160"
+                        src="{{ asset('storage/' . Auth::user()->image) }}"
+                        class="mb-3 rounded"
+                    />
+                @else
+                    <img
+                        id="image_preview"
+                        width="160"
+                        height="160"
+                        src="{{ asset('placeholder-avatar.jpg') }}"
+                        class="mb-3 rounded"
+                    />
+                @endif
+            </div>
+        </div>
+
+        <div class="col-md-10 card p-2">
+            <div>
+                <b>Name:</b> {{ Auth::user()->name }}
             </div>
 
             <div>
-                {{ Auth::user()->surname }}
+                <b>Surname:</b> {{ Auth::user()->surname }}
             </div>
 
             <div>
-                {{ Auth::user()->username }}
+                <b>Username:</b> {{ Auth::user()->username }}
             </div>
 
             <div>
-                {{ Auth::user()->email }}
+                <b>E-Mail:</b> {{ Auth::user()->email }}
             </div>
 
             <div>
-                {{ Auth::user()->address }}
+                <b>Address:</b> {{ Auth::user()->address }}
             </div>
 
             <div>
-                {{ Auth::user()->zipcode }}
+                <b>Zip Code:</b> {{ Auth::user()->zipcode }}
             </div>
 
             <div>
-                {{ Auth::user()->relationship_status }}
+                <b>Relationship Status:</b> {{ Auth::user()->relationship_status == 1 ? 'Taken' : 'Single' }}
             </div>
 
-            <div>
+            <div class="pt-2">
                 <a class='btn btn-primary' href="{{ route('users.edit', Auth::user()) }}">Edit Profile</a>
             </div>
         </div>
