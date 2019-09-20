@@ -24,50 +24,56 @@
                 @endif
             </div>
 
-            <form>
-                <button class="btn btn-primary like-button">Like</button>
-            </form>
+            @auth
+                <form>
+                    <button class="btn btn-primary like-button">Like</button>
+                </form>
+            @endauth
         </div>
 
         <div class="col-md-10 card p-2">
-            <div>
-                <b>Name:</b> {{ $user->name }}
-            </div>
+            @auth
+                <div>
+                    <b>Name:</b> {{ $user->name }}
+                </div>
 
-            <div>
-                <b>Surname:</b> {{ $user->surname }}
-            </div>
+                <div>
+                    <b>Surname:</b> {{ $user->surname }}
+                </div>
+            @endauth
 
             <div>
                 <b>Username:</b> {{ $user->username }}
             </div>
 
-            <div>
-                <b>E-Mail:</b> {{ $user->email }}
-            </div>
-
-            <div>
-                <b>Address:</b> {{ $user->address }}
-            </div>
-
-            <div>
-                <b>Zip Code:</b> {{ $user->zipcode }}
-            </div>
-
-            <div>
-                <b>Relationship Status:</b> {{ $user->relationship_status == 1 ? 'Taken' : 'Single' }}
-            </div>
-
-            <div>
-                <b>Likes:</b> <span id="likes">{{ $user->likes->count() }}</span>
-            </div>
-
-            {{-- Only display edit button if owned by user  --}}
-            @if(Auth::user() == $user)
-                <div class="pt-2">
-                    <a class='btn btn-primary' href="{{ route('users.edit', Auth::user()) }}">Edit Profile</a>
+            @auth
+                <div>
+                    <b>E-Mail:</b> {{ $user->email }}
                 </div>
-            @endif
+
+                <div>
+                    <b>Address:</b> {{ $user->address }}
+                </div>
+
+                <div>
+                    <b>Zip Code:</b> {{ $user->zipcode }}
+                </div>
+
+                <div>
+                    <b>Relationship Status:</b> {{ $user->relationship_status == 1 ? 'Taken' : 'Single' }}
+                </div>
+
+                <div>
+                    <b>Likes:</b> <span id="likes">{{ $user->likes->count() }}</span>
+                </div>
+
+                {{-- Only display edit button if owned by user  --}}
+                @if(Auth::user() == $user)
+                    <div class="pt-2">
+                        <a class='btn btn-primary' href="{{ route('users.edit', Auth::user()) }}">Edit Profile</a>
+                    </div>
+                @endif
+            @endauth
         </div>
     </div>
 </div>
