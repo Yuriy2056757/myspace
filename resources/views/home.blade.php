@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Search users..." id="demo" name="email">
+                <input type="text" class="form-control" placeholder="Search users...">
 
                 <div class="input-group-append">
                     <span class="input-group-text">Search</span>

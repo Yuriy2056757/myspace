@@ -15,5 +15,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-// Create standard RESTful routes for User resources
+// Create route for AJAX likes
+Route::post('likes', 'LikeController@ajaxRequest')->name('likes.post');
+
+// Create standard RESTful routes
 Route::resource('users', 'UserController', ['except' => ['store', 'destroy']]);
