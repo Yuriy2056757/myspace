@@ -14,6 +14,7 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/contact', 'HomeController@contact')->name('contact');
 
 // Create route for AJAX likes
 Route::post('likes', 'LikeController@ajaxRequest')->name('likes.post');

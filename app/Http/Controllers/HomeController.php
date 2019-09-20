@@ -20,4 +20,10 @@ class HomeController extends Controller
 
         return view('home', compact('users'));
     }
+
+    // Show contact page
+    public function contact()
+    {
+        return view('contact');
+    }
 }

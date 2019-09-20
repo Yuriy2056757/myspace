@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -25,6 +26,7 @@
     integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
     crossorigin="anonymous"></script>
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
@@ -32,6 +34,7 @@
                 <a class="navbar-brand text-white" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -45,6 +48,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
@@ -52,11 +56,13 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
+
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="{{ route('register') }}">
@@ -80,6 +86,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                        {{ __('Home') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('contact') }}">
+                                        {{ __('Contact') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('users.show', Auth::user()) }}">
                                         {{ __('My Profile') }}
                                     </a>
@@ -109,6 +123,16 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="bg-primary fixed-bottom py-1">
+            <div class="container text-center text-white">
+                <small>Copyright &copy; Myspace</small>
+
+                <div>
+                    <small><a href="{{ route('contact') }}" class="text-white">Contact</a></small>
+                </div>
+            </div>
+        </footer>
     </div>
 
     @yield('js')
