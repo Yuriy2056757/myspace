@@ -68,7 +68,8 @@
                 </div>
 
                 {{-- Only display edit button if owned by user  --}}
-                @if(Auth::user() == $user)
+
+                @if(Auth::user()->id == $user->id)
                     <div class="pt-2">
                         <a class='btn btn-primary' href="{{ route('users.edit', Auth::user()) }}">Edit Profile</a>
                     </div>
