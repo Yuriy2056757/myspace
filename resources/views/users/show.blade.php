@@ -28,6 +28,10 @@
                 <form>
                     <button class="btn btn-primary like-button">Like</button>
                 </form>
+
+                <span style="{{ $liked->count() ? '' : 'display: none;' }}" class="already-liked">
+                    You've liked this profile
+                </span>
             @endauth
         </div>
 
@@ -105,8 +109,12 @@
 
                     if (data.success) {
                         likesObj.html(parseInt(likesObj.html()) + 1);
+
+                        $('.already-liked').show();
                     } else {
                         likesObj.html(parseInt(likesObj.html()) - 1);
+
+                        $('.already-liked').hide();
                     }
                 }
             });

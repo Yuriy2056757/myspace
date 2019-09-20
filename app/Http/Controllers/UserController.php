@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +54,13 @@ class UserController extends Controller
     {
         $likes = $user->likes;
 
-        return view('users.show', compact('user', 'likes'));
+        // Check if user has already liked the profile
+        $liked = Like::where('user_id', $user->id)
+            ->where('user_liked_id', Auth::user()->id)
+            ->get();
+
+        return view('users.show', compact('user', 'likes'))
+            ->with('liked', $liked);
     }
 
     /**
