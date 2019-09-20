@@ -55,9 +55,15 @@ class UserController extends Controller
         $likes = $user->likes;
 
         // Check if user has already liked the profile
-        $liked = Like::where('user_id', $user->id)
-            ->where('user_liked_id', Auth::user()->id)
-            ->get();
+        if (Auth::check()) {
+            $liked = Like::where('user_id', $user->id)
+                ->where('user_liked_id', Auth::user()->id)
+                ->get();
+        } else {
+
+            // Prevent error for guests
+            $liked = null;
+        }
 
         return view('users.show', compact('user', 'likes'))
             ->with('liked', $liked);
