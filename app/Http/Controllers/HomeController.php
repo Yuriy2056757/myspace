@@ -16,7 +16,14 @@ class HomeController extends Controller
     {
 
         // Retrieve all users
-        $users = User::all();
+        $allUsers = User::all();
+        $userCount = $allUsers->count();
+
+        if ($userCount > 6) {
+            $userCount = 6;
+        }
+
+        $users = $allUsers->random($userCount);
 
         return view('home', compact('users'));
     }
